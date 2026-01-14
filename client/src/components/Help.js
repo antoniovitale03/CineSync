@@ -1,12 +1,16 @@
 import React from "react";
 import {useState} from "react";
 import "../CSS/Form.css"
-import {Box, FormControl, InputLabel, Stack, Typography, TextField, Input, Button} from "@mui/material";
+import {Box, Stack, Typography, TextField, Button} from "@mui/material";
+import {useNotification} from "../context/notificationContext";
 import useDocumentTitle from "./hooks/useDocumentTitle";
 export default function Help(){
     const [email, setEmail] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+    const {showNotification} = useNotification();
+    const [error, setError] = useState("");
 
     useDocumentTitle("Help");
 
