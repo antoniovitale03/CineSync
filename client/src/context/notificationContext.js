@@ -14,9 +14,9 @@ export function NotificationProvider({ children }) {
         setIsOpen(true);
     };
 
-    // Funzione per chiudere la notifica
+    // Chiude la notifica solo se l'utente ha cliccato sulla x oppure sono passati 4 s
     const handleClose = (event, reason) => {
-        if (reason === 'clickaway') return;
+        if (reason === 'clickaway') return; //non chiudere la notifica se l'utente ha cliccato fuori dallo SnackBar
         setIsOpen(false);
     };
 

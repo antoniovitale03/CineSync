@@ -46,17 +46,10 @@ export default function LoginForm({  setStep, email, setEmail }) {
         <Box>
             <Box component="form" onSubmit={handleLogin}>
 
-                <Typography component="h2">Login</Typography>
+                <Typography component="h2" sx={{ textAlign: 'center', color:'#344e41' }}>Login</Typography>
 
-                <FormControl>
-                    <InputLabel htmlFor="email">Email</InputLabel>
-                    <Input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                </FormControl>
-
-                <FormControl>
-                     <InputLabel htmlFor="password">Password</InputLabel>
-                     <Input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                </FormControl>
+                <TextField label="Email" type="email" variant="outlined" value={email} onChange={e => setEmail(e.target.value)} />
+                <TextField label="Password" type="password" variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
 
                 <Button variant="contained" type="submit">Accedi</Button>
             </Box>

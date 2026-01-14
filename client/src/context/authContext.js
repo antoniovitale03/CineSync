@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>; // children è la componente App
 }
 
-// Custom hook per un accesso facilitato
+
 export function useAuth() {
     return useContext(AuthContext)
 }

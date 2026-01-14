@@ -14,6 +14,7 @@ export default function ModifyPassword() {
 
     const handleModifyPassword = async (event) => {
         event.preventDefault();
+        if (newPassword !== confirmNewPassword) return showNotification("Le password non corrispondono");
         try{
             await api.post(`${process.env.REACT_APP_SERVER}/api/user/modify-password`, {
                 oldPassword, newPassword, confirmNewPassword

@@ -37,7 +37,7 @@ export default function LoginPage() {
                 {
                     step === 1 ? <LoginForm setStep={setStep} email={email} setEmail={setEmail} /> :
                         step === 2 ? <VerificationForm onVerify={handleVerify} /> :
-                            step === 3 ? <ForgotPasswordForm setStep={setStep} email={email} /> : null
+                            step === 3 && <ForgotPasswordForm setStep={setStep} email={email} />
                 }
             </Box>
         </Box>

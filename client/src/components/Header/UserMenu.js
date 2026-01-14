@@ -14,11 +14,11 @@ import {useState} from "react";
 import DropDownMenu from "../DropDownMenu";
 export default function UserMenu() {
     const {user, logout} = useAuth();
-    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null); //elemento di ancoraggio del menu (in questo caso il bottone)
 
-    const userMenuLinks = ['/', `/${user?.username}/profile`, `/${user?.username}/watched`, `/${user?.username}/favorites`, `/${user?.username}/reviews`, `/${user?.username}/watchlist`, `/${user?.username}/lists`];
-    const userMenuNames = ["Home", "Il mio profilo", "Film visti", "I miei preferiti", "Le mie recensioni", "Film da guardare", "Le mie liste"];
-    const userMenuIcons = [<HomeIcon />, <PersonIcon />, <VisibilityIcon />, <FavoriteIcon />, <RateReviewIcon/>, <WatchLaterIcon />, <ListIcon />];
+    const links = ['/', `/${user?.username}/profile`, `/${user?.username}/watched`, `/${user?.username}/favorites`, `/${user?.username}/reviews`, `/${user?.username}/watchlist`, `/${user?.username}/lists`];
+    const names = ["Home", "Il mio profilo", "Film visti", "I miei preferiti", "Le mie recensioni", "Film da guardare", "Le mie liste"];
+    const icons = [<HomeIcon />, <PersonIcon />, <VisibilityIcon />, <FavoriteIcon />, <RateReviewIcon/>, <WatchLaterIcon />, <ListIcon />];
 
     const settingsMenuNames = ["Modifica il mio profilo", "Modifica la mia password", "Elimina il tuo account"];
     const settingsMenuLinks = ["/settings/modify-profile", "/settings/modify-password", "/settings/delete-account"];
@@ -26,15 +26,15 @@ export default function UserMenu() {
     const menu =
         <Box>
             {
-                userMenuLinks.map((menuLink, index) =>
-                    <MenuItem component={Link} to={menuLink} onClick={() => setIsUserMenuOpen(false)}>
-                        <ListItemIcon>{userMenuIcons[index]}</ListItemIcon>{userMenuNames[index]}
+                links.map((link, index) =>
+                    <MenuItem component={Link} to={link} onClick={() => setAnchorEl(null)}>
+                        <ListItemIcon>{icons[index]}</ListItemIcon>{names[index]}
                     </MenuItem>)
             }
-            <Divider key="divider1"/>
+            <Divider><strong>Impostazioni</strong></Divider>
             {
                 settingsMenuLinks.map((menuLink, index) =>
-                    <MenuItem component={Link} to={menuLink} onClick={() => setIsUserMenuOpen(false)}>
+                    <MenuItem component={Link} to={menuLink} onClick={() => setAnchorEl(null)}>
                         <ListItemIcon><Settings /></ListItemIcon>{settingsMenuNames[index]}
                     </MenuItem>)
             }
@@ -47,7 +47,6 @@ export default function UserMenu() {
 
     return(
         <DropDownMenu buttonContent={<Tooltip title={user?.username}><Avatar/></Tooltip>}
-                      menuContent={menu}
-                      isMenuOpen={isUserMenuOpen} setIsMenuOpen={setIsUserMenuOpen} />
+                      menuContent={menu} anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
     )
 }

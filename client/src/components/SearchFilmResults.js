@@ -1,7 +1,7 @@
 import FilmCard from "./Cards/FilmCard";
 import useDocumentTitle from "./hooks/useDocumentTitle";
 import {useParams} from "react-router-dom";
-import {Box, Grid, Stack, Typography} from "@mui/material";
+import {Grid, Stack, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import {useNotification} from "../context/notificationContext";
 import api from "../api";

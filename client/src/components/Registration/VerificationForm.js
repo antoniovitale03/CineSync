@@ -25,12 +25,12 @@ export default function VerificationForm({ onVerify }){
 
     return (
         <Box component="form" onSubmit={handleVerify}>
-            <Typography component="h3">Codice di verifica</Typography>
+            <Typography component="h2" sx={{ textAlign: 'center', color:'#344e41' }}>Codice di verifica</Typography>
             <MuiOtpInput
                 value={verificationCode}
                 onChange={setVerificationCode}
                 length={6}
-                validateChar={ (value, index) => {return !isNaN(Number(value))} } // Accetta solo numeri
+                validateChar={ value =>  !isNaN(Number(value)) } // Accetta solo numeri
                 sx={{
                     // Stile per i quadrati
                     '& .MuiInputBase-root': {

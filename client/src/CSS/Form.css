@@ -1,6 +1,5 @@
 .sfondo {
     position: relative;
-    min-height: 100vh;
     background: url("https://i.imgur.com/Abm0wRq.jpg") center/cover no-repeat;
     overflow: hidden;
 }
@@ -16,36 +15,30 @@
     z-index: 0;
 }
 
+.sfondo > * {
+    position: relative;
+    z-index: 1;
+}
+
 /* contenitore principale della pagina */
 .page-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
     min-height: 100vh;
-    position: relative;
-    z-index: 1;
 }
 
 .page-container form {
     display: flex;
-    flex-direction: column; /* Mette gli elementi in colonna */
-    gap: 3rem; /* Spazio tra i gruppi del form */
+    flex-direction: column;
+    gap: 3rem;
     padding: 4rem;
     margin-bottom: 3.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8%;
     background-color: #a4c3b2ff;
-    min-width: 350px;
-    max-width: 350px;
-    width: 100%;
-}
-
-
-.page-container h2 {
-    text-align: center;
-    color:#344e41
+    min-width: 20vw;
+    max-width: 30vw;
 }
 
 
@@ -75,11 +68,11 @@
 
 /*classe creata per gestire l'allineamento a destra */
 .forgot-password-container{
+    display: flex;
+    justify-content: center;
     background-color: #344e41;
     padding: 0.5%;
     border-radius: 20px;
-    display: flex;
-    justify-content: center;
     margin-bottom: 3.5rem;
     text-align: left;
 }

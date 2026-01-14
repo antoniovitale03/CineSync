@@ -43,10 +43,7 @@ exports.modifyPassword = async (req, res) => {
 
         //controllo che la "vecchia password" corrisponda a quella dell'utente
         const isMatch = await bcrypt.compare(oldPassword, user.password);
-        if (!isMatch) return res.status(400).json("La vecchia password non è corretta. ")
-
-        //dopodichè controllo che la nuova password e la sua conferma siano uguali
-        if (newPassword !== confirmNewPassword) return res.status(400).json( 'Le password non corrispondono.');
+        if (!isMatch) return res.status(400).json("La vecchia password non è corretta. ");
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(newPassword, salt);

@@ -35,9 +35,9 @@ export default function FavoritesFilms(){
 
 
     return(
-        <Stack spacing={7}>
+        <Box>
             {films.length > 0 ?
-                <Box>
+                <Stack spacing={7}>
                 {user.username === username ?
                     <Typography component="h1" variant="strong">I tuoi {films.length} film preferiti</Typography>
                     : <Typography component="h1" variant="strong">{username} ha {films.length} film preferiti</Typography>}
@@ -48,7 +48,7 @@ export default function FavoritesFilms(){
                             </Grid>)
                         }
                     </Grid>
-                </Box>:
+                </Stack>:
                 <Box>
                     {user.username === username ?
                         <Typography component="h1" variant="strong">Non hai ancora aggiunto nessun film ai tuoi preferiti</Typography>
@@ -56,6 +56,6 @@ export default function FavoritesFilms(){
                     }
                 </Box>
             }
-        </Stack>
+        </Box>
     )
 }

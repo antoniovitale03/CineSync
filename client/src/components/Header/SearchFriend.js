@@ -10,11 +10,11 @@ export default function SearchFriend(){
 
     const [friendUsername, setFriendUsername] = useState("");
     const {showNotification} = useNotification();
-    const [isAddFriendMenuOpen, setIsAddFriendMenuOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const sendFriendRequest = (event) => {
         event.preventDefault();
-        setIsAddFriendMenuOpen(false);
+        setAnchorEl(null);
         setFriendUsername("");
         api.post(`${process.env.REACT_APP_SERVER}/api/user/${friendUsername}/follow`)
             .then(() => showNotification(<strong>Hai appena aggiunto <Link to={`/${friendUsername}/profile`} style={{ color: 'green' }}>{friendUsername}</Link> come amico</strong>, "success"))
@@ -32,6 +32,6 @@ export default function SearchFriend(){
 
     return(
         <DropDownMenu buttonContent={<Typography component="p" sx={{color:"#354f52", marginTop:"5px"}}>Aggiungi un amico </Typography>}
-                      menuContent={addAfriendMenu} isMenuOpen={isAddFriendMenuOpen} setIsMenuOpen={setIsAddFriendMenuOpen} />
+                      menuContent={addAfriendMenu} anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
     )
 }

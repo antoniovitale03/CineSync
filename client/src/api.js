@@ -1,7 +1,7 @@
 //uso axios per interecettare una risposta 401 Unauthorized (token scaduto) per refreshare il token
 import axios from "axios";
 const api = axios.create({
-    baseURL: process.env.CLIENT_URL, // in produzione il browser ignora questa parte
+    baseURL: process.env.REACT_APP_CLIENT_URL, // in produzione il browser ignora questa parte
     withCredentials: true //ogni richiesta fatta con axios includerà automaticamente i cookie (utile per inviare il refresh-token tramite i cookie)
 })
 

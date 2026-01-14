@@ -8,9 +8,6 @@ export default function Help(){
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
-    const [error, setError] = useState("");
-    const [successMessage, setSuccessMessage] = useState("");
-
     useDocumentTitle("Help");
 
     const handleSubmit = (event) => {
@@ -19,7 +16,7 @@ export default function Help(){
         try{
             setSuccessMessage("Avrai una risposta entro 48 ore.")
         } catch(error){
-            setError(error.message);
+            showNotification(error.response.data, "error");
         }
     }
 
@@ -27,28 +24,12 @@ export default function Help(){
         <Box classname="page-container">
             <Box className="form-container">
                 <Typography component="h5">Contattaci per avere supporto</Typography>
-                {error && <Typography component="p" className="error-message">{error}</Typography>}
-                <Box component="form" onSubmit={handleSubmit}>
-                    <Stack spacing={5}>
-                        <FormControl>
-                            <InputLabel htmlFor="email">Email</InputLabel>
-                            <Input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
-                        </FormControl>
-
-                        <FormControl>
-                            <InputLabel htmlFor="title">Titolo</InputLabel>
-                            <Input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required/>
-                        </FormControl>
-
-                        <FormControl>
-                            <TextField id="outlined-multiline-flexible" multiline rows={5} label="Descrizione del problema" value={description} onChange={(e) => setDescription(e.target.value)} />
-                        </FormControl>
-
-                    </Stack>
-
+                <Stack component="form" spacing={5} onSubmit={handleSubmit}>
+                    <TextField placeholder="email" value={email} onChange={(event) => setEmail(event.target.value)} variant="outlined"  />
+                    <TextField placeholder="Titolo" value={title} onChange={(event) => setTitle(event.target.value)} variant="outlined" />
+                    <TextField placeholder="Descrizione del problema" value={description} multiline rows={5} onChange={(event) => setDescription(event.target.value)} variant="outlined" />
                     <Button type="submit">Invia</Button>
-                </Box>
-                {successMessage && <Typography variant="p" className="success-message">{successMessage}</Typography>}
+                </Stack>
             </Box>
         </Box>
     )

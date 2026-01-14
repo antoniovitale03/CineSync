@@ -75,13 +75,12 @@ export default function SearchFilters({filters, setFilters, decadeFilter, isLike
             </FormControl>
 
             {
-                isLikedFilter === false ? null :
+                isLikedFilter === true &&
                 <FormControlLabel control={<Checkbox
                     checked={filters.isLiked}
                     onChange={() => setFilters({...filters, isLiked: !filters.isLiked})}
                 />} label={filters.isLiked === true ? "Film piaciuti" : "Film non piaciuti"} />
             }
-
 
         </Box>
     )

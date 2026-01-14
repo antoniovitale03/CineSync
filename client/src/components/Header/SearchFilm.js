@@ -1,4 +1,4 @@
-import {Box, Button, TextField} from "@mui/material";
+import {Box, Button, IconButton, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useNotification} from "../../context/notificationContext";
 import {useState} from "react";
@@ -21,10 +21,10 @@ export default function SearchFilm(){
     }
     return(
         <Box component="form" onSubmit={handleSearch}>
-            <TextField type="search" id="outlined-basic" label="Cerca un film..." variant="outlined" value={title} onChange={ (e) => setTitle(e.target.value) } />
-            <Button sx={{backgroundColor:"#354f52", marginTop:"8px"}} variant="contained" onClick={handleSearch}>
+            <TextField type="search" id="outlined-basic" placeholder="Cerca un film..." variant="outlined" value={title} onChange={ (e) => setTitle(e.target.value) } />
+            <IconButton onClick={handleSearch}>
                 <SearchIcon/>
-            </Button>
+            </IconButton>
         </Box>
     )
 }

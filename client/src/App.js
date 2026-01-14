@@ -24,7 +24,6 @@ export default function App() {
         <Routes>
             <Route path="/registration" element={!isLoggedIn ? <RegistrationPage /> : <Navigate to="/" />} />
             <Route path="/login" element={!isLoggedIn ? <LoginPage /> : <Navigate to="/" />} />
-            <Route path="/forgot-password" element={<ForgotPasswordForm />} />
             <Route path="/*" element={<Layout /> } />
         </Routes>
     )
