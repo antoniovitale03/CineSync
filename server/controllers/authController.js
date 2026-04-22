@@ -9,6 +9,7 @@ async function sendMail(username, email) {
 
     //codice di verifica casuale a 6 cifre
     const code = Math.floor(100000 + Math.random() * 900000).toString();
+
     //attivo la password per le app nell'account google per poter inviare mail da av715... con nodemailer
     let transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -17,13 +18,21 @@ async function sendMail(username, email) {
             pass: process.env.passw,
         },
     });
-    await transporter.sendMail({
-        from: process.env.email,
-        to: email,
-        subject: `CODICE DI VERIFICA`,
-        text: `Ciao ${username}, grazie per esserti registrato! Il codice di verifica è: ${code}`,
-        html: `<p>Ciao ${username}, grazie per esserti registrato!</p><p>Il tuo codice di verifica è: <strong>${code}</strong></p>`
-    });
+
+    try{
+        await transporter.sendMail({
+            from: process.env.email,
+            to: email,
+            subject: `CODICE DI VERIFICA`,
+            text: `Ciao ${username}, grazie per esserti registrato! Il codice di verifica è: ${code}`,
+            html: `<p>Ciao ${username}, grazie per esserti registrato!</p><p>Il tuo codice di verifica è: <strong>${code}</strong></p>`
+        });
+    }catch(error){
+        console.log(error);
+    }
+
+
+
     return code
 }
 
@@ -34,6 +43,7 @@ exports.registerData = async (req, res) => {
         if (await User.findOne({ email })) return res.status(400).json("Email già in uso.");
 
         if (await User.findOne({ username })) return res.status(400).json('Username già in uso.');
+
 
         const verificationCode = await sendMail(username, email);
         const expiresAt = new Date(Date.now() + 300 * 1000); // il codice ha scadenza di 5 minuti
