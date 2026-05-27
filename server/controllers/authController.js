@@ -132,9 +132,7 @@ exports.forgotPassword = async (req, res) => {
     try{
         const { email } = req.body;
         const user = await User.findOne({ email: email });
-        if(!user){
-            return res.status(404).json("utente non esistente");
-        }
+        if(!user){ return res.status(404).json("utente non esistente"); }
         const code = await sendMail(user.username, email);
         const expiresAt = new Date(Date.now() + 300 * 1000); // scade in 300s (5min)
         await PendingUser.findOneAndUpdate(
@@ -143,9 +141,7 @@ exports.forgotPassword = async (req, res) => {
             { upsert: true }
         );
         res.status(200).json("Email inviata");
-    }catch(error){
-        res.status(500).json('Errore del server.');
-    }
+    }catch(error){ res.status(500).json('Errore del server.'); }
 }
 
 exports.loginVerify = async (req, res) => {
