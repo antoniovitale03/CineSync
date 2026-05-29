@@ -17,7 +17,7 @@ api.interceptors.response.use(
 
             try {
                 // Nel cookie della richiesta è gia presente il refresh token
-                const response = await api.post('http://localhost:5001/api/auth/refresh');
+                const response = await api.post(`${process.env.REACT_APP_SERVER}/api/auth/refresh`);
                 const accessToken = response.data;
 
                 //aggiorno l'accessToken nel localStorage
