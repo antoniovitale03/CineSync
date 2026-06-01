@@ -10,7 +10,7 @@ const filmRouter = require('./routers/filmRouter');
 const userRouter = require('./routers/userRouter');
 
 
-const PORT = process.env.PORT;
+//const PORT = process.env.PORT;
 const CLIENT_URL = process.env.CLIENT_URL;
 const MONGO_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSW}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`;
 
@@ -35,6 +35,6 @@ mongoose.connect(MONGO_URI)
     .then(() => console.log('MongoDB connesso con successo!'))
     .catch(error => console.error('Errore di connessione a MongoDB:', error.message))
 
-//module.exports = app
-app.listen(PORT, () => console.log(`Server in esecuzione sulla porta ${PORT}`));
+module.exports = app
+//app.listen(PORT, () => console.log(`Server in esecuzione sulla porta ${PORT}`));
 
