@@ -36,6 +36,6 @@ mongoose.connect(MONGO_URI)
     .then(() => console.log('MongoDB connesso con successo!'))
     .catch(error => console.error('Errore di connessione a MongoDB:', error.message))
 
-
-app.listen(PORT, () => console.log(`Server in esecuzione sulla porta ${PORT}`));
+module.exports = app
+//app.listen(PORT, () => console.log(`Server in esecuzione sulla porta ${PORT}`));
 
