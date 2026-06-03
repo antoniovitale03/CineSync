@@ -18,8 +18,8 @@ function Home(){
         const param = new URLSearchParams();
         if(user) param.append("userID", user.id);
         api.get(`${process.env.REACT_APP_SERVER}/api/films/home/get-home-page-films?${param.toString()}`)
-            .then(response => setFilms(response?.data))
-            .catch(error => showNotification(error.response.data, "error"));
+            .then(response => setFilms(response.data))
+            .catch(error => showNotification(error?.response?.data, "error"));
     }, [user, showNotification])
 
     return (
