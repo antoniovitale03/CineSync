@@ -28,8 +28,8 @@ function FavoritesFilms(){
 
     useEffect(() => {
         api.get(`${process.env.REACT_APP_SERVER}/api/films/favorites/get-favorites/${username}`)
-            .then(response => setFilms(response.data))
-            .catch(error => showNotification(error.response.data, "error"));
+            .then(response => setFilms(response?.data))
+            .catch(() => showNotification("Errore del server", "error"));
     }, [username, showNotification]);
 
 

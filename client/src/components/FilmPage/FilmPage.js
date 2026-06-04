@@ -32,8 +32,8 @@ function FilmPage(){
     //che filmTitle e filmID cambiano, cioè quando l'utente carica la pagina di un altro film
     useEffect( () => {
         api.get(`${process.env.REACT_APP_SERVER}/api/films/get-film/${filmID}`)
-            .then( response => setFilm(response.data))
-            .catch(error => showNotification(error.response.data, "error"));
+            .then( response => setFilm(response?.data))
+            .catch( () => showNotification("Errore del server", "error"));
     }, [filmTitle, filmID, showNotification])
 
 

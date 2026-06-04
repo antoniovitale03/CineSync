@@ -34,10 +34,10 @@ function FilmsByYear(){
         const params = GetParams(filters);
         api.get(`${process.env.REACT_APP_SERVER}/api/films/get-films/${year}?${params.toString()}`)
             .then(response => {
-                setFilms(response.data.films);
-                setTotalPages(response.data.totalPages);
+                setFilms(response?.data.films);
+                setTotalPages(response?.data.totalPages);
             })
-            .catch(error => showNotification(error.response.data, "error"));
+            .catch(() => showNotification("Errore del server", "error"));
     }, [filters, year, showNotification]);
 
 

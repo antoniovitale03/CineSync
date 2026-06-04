@@ -47,15 +47,15 @@ function Reviews(){
         if( _.isEqual(filters, {genre: "", decade: "", minRating: 0, sortByDate: "", sortByPopularity: ""})){
             api.get(`${process.env.REACT_APP_SERVER}/api/films/reviews/get-reviews/${username}`)
                 .then(response => {
-                    setReviews(response.data);
-                    setNumReviews(response.data.length);
+                    setReviews(response?.data);
+                    setNumReviews(response?.data.length);
                 })
-                .catch(error => showNotification(error.response.data, "error"));
+                .catch(() => showNotification("Errore del server", "error"));
         }else{
             const params = GetParams(filters);
             api.get(`${process.env.REACT_APP_SERVER}/api/films/reviews/get-reviews/${username}?${params.toString()}`)
-                .then(response => setReviews(response.data))
-                .catch(error => showNotification(error.response.data, "error"));
+                .then(response => setReviews(response?.data))
+                .catch(() => showNotification("Errore del server", "error"));
         }
     }, [username, filters, showNotification]);
 

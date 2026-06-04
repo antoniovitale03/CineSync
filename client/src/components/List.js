@@ -29,8 +29,8 @@ function List(){
 
     useEffect( () => {
         api.get(`${process.env.REACT_APP_SERVER}/api/films/lists/get-list/${username}/${listName}`)
-            .then(response => setList(response.data))
-            .catch(error => showNotification(error.response.data, "error"));
+            .then(response => setList(response?.data))
+            .catch(() => showNotification("Errore del server", "error"));
         }, [username, listName, showNotification]);
 
 

@@ -15,8 +15,8 @@ function DirectorPage() {
 
     useEffect(() => {
         api.get(`${process.env.REACT_APP_SERVER}/api/films/get-director-info/${directorID}`)
-            .then(response => setDirector(response.data))
-            .catch(error => showNotification(error.response.data, "error"));
+            .then(response => setDirector(response?.data))
+            .catch(() => showNotification("Errore del server", "error"));
     }, [directorName, directorID, showNotification]);
 
 if(director){

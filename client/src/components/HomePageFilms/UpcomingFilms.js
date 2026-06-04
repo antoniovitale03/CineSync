@@ -18,10 +18,10 @@ function UpcomingFilms() {
     useEffect( () => {
         api.get(`${process.env.REACT_APP_SERVER}/api/films/home/get-upcoming-films/page/${page}`)
             .then(response => {
-                setFilms(response.data.films);
-                setTotalPages(response.data.totalPages);
+                setFilms(response?.data.films);
+                setTotalPages(response?.data.totalPages);
             })
-        .catch(error => showNotification(error.response.data, "error"));
+        .catch(() => showNotification("Errore del server", "error"));
     }, [page, showNotification]);
 
     const handlePageChange = (event, value) => {

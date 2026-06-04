@@ -22,12 +22,12 @@ function SimilarFilms(){
         params.append("filmID", filmID);
         params.append("page", page);
         api.get(`${process.env.REACT_APP_SERVER}/api/films/get-similar-films?${params.toString()}`)
-            .then(response => response.data)
+            .then(response => response?.data)
             .then(data => {
-                setFilms(data.films);
-                setTotalPages(data.totalPages);
+                setFilms(data?.films);
+                setTotalPages(data?.totalPages);
             })
-            .catch(() => showNotification("Errore nel caricamento dei film simili", "error"));
+            .catch(() => showNotification("Errore del server", "error"));
     }, [filmTitle, filmID, page, showNotification])
 
     const handlePageChange = (event, value) => {

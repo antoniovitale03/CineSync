@@ -33,8 +33,8 @@ function Following() {
 
     useEffect( () => {
         api.get(`${process.env.REACT_APP_SERVER}/api/user/${username}/get-following`)
-            .then(response => setFollowing(response.data))
-            .catch(error => showNotification(error.response.data, "error"));
+            .then(response => setFollowing(response?.data))
+            .catch(() => showNotification("Errore del server", "error"));
          }, [username, showNotification]);
 
 

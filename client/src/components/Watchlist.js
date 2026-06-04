@@ -43,15 +43,15 @@ function Watchlist(){
         if( _.isEqual(filters, {genre: "", decade: "", minRating: 0, sortByDate: "", sortByPopularity: ""})){
             api.get(`${process.env.REACT_APP_SERVER}/api/films/watchlist/get-watchlist/${username}`)
             .then(response => {
-                setFilms(response.data);
-                setNumWatchlist(response.data.length);
+                setFilms(response?.data);
+                setNumWatchlist(response?.data.length);
             })
-            .catch(error => showNotification(error.response.data, "error"));
+            .catch(() => showNotification("Errore del server", "error"));
         }else{
             const params = GetParams(filters);
             api.get(`${process.env.REACT_APP_SERVER}/api/films/watchlist/get-watchlist/${username}?${params.toString()}`)
-            .then(response => setFilms(response.data))
-            .catch(error => showNotification(error.response.data, "error"));
+            .then(response => setFilms(response?.data))
+            .catch(() => showNotification("Errore del server", "error"));
         }
     }, [username, filters, showNotification])
 

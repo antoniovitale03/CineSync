@@ -15,8 +15,8 @@ function Followers() {
 
     useEffect( () => {
         api.get(`${process.env.REACT_APP_SERVER}/api/user/${username}/get-followers`)
-            .then(response => setFollowers(response.data))
-            .catch(error => showNotification(error.response.data, "error"));
+            .then(response => setFollowers(response?.data))
+            .catch(() => showNotification("Errore del server", "error"));
     },[username, showNotification]);
 
     return(

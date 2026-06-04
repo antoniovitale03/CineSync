@@ -45,15 +45,15 @@ function Watched(){
         if( _.isEqual(filters, {genre: "", decade: "", minRating: 0, sortByDate: "", sortByPopularity: "", isLiked: null})){
             api.get(`${process.env.REACT_APP_SERVER}/api/films/watched/get-watched/${username}`)
                 .then(response => {
-                    setFilms(response.data);
-                    setNumWatched(response.data.length);
+                    setFilms(response?.data);
+                    setNumWatched(response?.data.length);
                 })
-                .catch(error => showNotification(error.response.data, "error"));
+                .catch(() => showNotification("Errore del server", "error"));
         }else{
             const params = GetParams(filters);
             api.get(`${process.env.REACT_APP_SERVER}/api/films/watched/get-watched/${username}?${params.toString()}`)
-            .then(response => setFilms(response.data))
-            .catch(error => showNotification(error.response.data, "error"));
+            .then(response => setFilms(response?.data))
+            .catch(() => showNotification("Errore del server", "error"));
         }
     }, [filters, username, showNotification]);
 

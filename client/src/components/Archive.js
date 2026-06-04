@@ -33,11 +33,11 @@ function Archive(){
         const params = GetParams(filters);
         api.get(`${process.env.REACT_APP_SERVER}/api/films/get-archive?${params.toString()}`)
             .then(response => {
-                setArchive(response.data.films);
-                setTotalPages(response.data.totalPages);
+                setArchive(response?.data.films);
+                setTotalPages(response?.data.totalPages);
             })
-            .catch(error => {
-                showNotification(error.response.data, "error");
+            .catch(() => {
+                showNotification("Errore del server", "error");
                 setTotalPages(0);
             });
     }, [filters, showNotification]);

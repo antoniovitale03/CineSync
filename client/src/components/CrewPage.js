@@ -17,8 +17,8 @@ function CrewPage(){
 
     useEffect( () => {
         api.get(`${process.env.REACT_APP_SERVER}/api/films/get-crew/${filmID}`)
-            .then(response => setCrew(response.data))
-            .catch(error => showNotification(error.response.data, "error"));
+            .then(response => setCrew(response?.data))
+            .catch(() => showNotification("Errore del server", "error"));
     }, [filmTitle, filmID, showNotification])
 
     return(

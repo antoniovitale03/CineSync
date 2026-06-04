@@ -16,8 +16,8 @@ function CastPage(){
 
     useEffect( () => {
         api.get(`${process.env.REACT_APP_SERVER}/api/films/get-cast/${filmID}`)
-            .then(response => setCast(response.data))
-            .catch(error => showNotification(error.response.data, "error"));
+            .then(response => setCast(response?.data))
+            .catch(() => showNotification("Errore del server", "error"));
     }, [filmTitle, filmID, showNotification]);
 
     return(

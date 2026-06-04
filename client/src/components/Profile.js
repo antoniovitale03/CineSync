@@ -38,10 +38,10 @@ function Profile(){
     useEffect( () => {
         api.get(`${process.env.REACT_APP_SERVER}/api/user/${username}/get-profile-info`)
             .then(response => {
-                setProfile(response.data);
-                setFavoritesFilms(response.data.favorites);
+                setProfile(response?.data);
+                setFavoritesFilms(response?.data.favorites);
             })
-        .catch(error => showNotification(error.response.data, "error"));
+        .catch(() => showNotification("Errore del server", "error"));
     }, [username, showNotification])
 
 

@@ -14,8 +14,8 @@ function ActivityPage(){
 
     useEffect(() => {
         api.get(`${process.env.REACT_APP_SERVER}/api/user/${username}/get-activity`)
-            .then( (response) => setActivity(response.data))
-            .catch(error => showNotification(error.response.data, "error"));
+            .then( response => setActivity(response?.data))
+            .catch(() => showNotification("Errore del server", "error"));
     }, [username, showNotification])
 
     return(
