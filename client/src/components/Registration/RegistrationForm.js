@@ -25,7 +25,7 @@ function RegistrationForm({ email, setEmail, setStep }) {
             setEmail(email);
             setStep(2);
         }catch(error){
-            showNotification(error.response.data, "error")
+            showNotification(error?.response?.data, "error")
             //in caso di errore (email o username già esistenti), mostro l'errore e resetto i dati di input
             setUsername("");
             setEmail("");

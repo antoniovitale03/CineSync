@@ -23,7 +23,7 @@ function LoginForm({  setStep, email, setEmail }) {
             // variabile di stato user e nella memoria locale del browser)
             setUser(user);
         } catch (error) {
-            showNotification(error.response.data, "error")
+            showNotification(error?.response?.data, "error");
             setEmail("");
             setPassword("");
         }

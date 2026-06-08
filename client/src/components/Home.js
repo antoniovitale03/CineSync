@@ -16,9 +16,9 @@ function Home(){
 
     useEffect(() => {
         const param = new URLSearchParams();
-        if(user) param.append("userID", user.id);
+        if (user) param.append("userID", user.id);
         api.get(`${process.env.REACT_APP_SERVER}/api/films/home/get-home-page-films?${param.toString()}`)
-            .then(response => setFilms(response.data))
+            .then(response => setFilms(response?.data))
             .catch(() => showNotification("Errore del server", "error"));
     }, [user, showNotification])
 

@@ -34,7 +34,7 @@ function FilmPage(){
         api.get(`${process.env.REACT_APP_SERVER}/api/films/get-film/${filmID}`)
             .then( response => setFilm(response?.data))
             .catch( () => showNotification("Errore del server", "error"));
-    }, [filmTitle, filmID, showNotification])
+    }, [filmTitle, filmID])
 
 
     if(!film){

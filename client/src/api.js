@@ -1,41 +1,52 @@
-//uso axios per interecettare una risposta 401 Unauthorized (token scaduto) per refreshare il token
 import axios from "axios";
-const api = axios.create({
-    baseURL: "http://localhost:3000",
-    withCredentials: true //ogni richiesta fatta con axios includerà automaticamente i cookie (utile per inviare il refresh-token tramite i cookie)
-})
 
-// Intercettore che in caso di risposta 401 Unauthorized refresha il token
+// Usa sempre la variabile d'ambiente come baseURL per evitare problemi tra fisso, portatile e cloud!
+const api = axios.create({
+    baseURL: process.env.REACT_APP_SERVER || "http://localhost:5000",
+    withCredentials: true
+});
+
+// Intercettore di risposta
 api.interceptors.response.use(
-    (response) => response, //Se la risposta è OK, non fare nulla
+    (response) => response,
     async (error) => {
         const originalRequest = error.config;
 
-        // Se l'errore è 401 (Unauthorized) e non è un tentativo di retry
-        if (error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true; // Marca come tentativo di retry
+        // CASO CRITICO: Se a fallire con 401 è la chiamata stessa di REFRESH, fermati subito!
+        if (originalRequest.url.includes("/api/auth/refresh")) {
+            window.dispatchEvent(new CustomEvent('logout-event'));
+            return Promise.reject(error);
+        }
+
+        // Se l'errore è 401 ed è una richiesta normale che non abbiamo ancora ritentato
+        if (error.response?.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
 
             try {
-                // Nel cookie della richiesta è gia presente il refresh token
-                const response = await api.post(`${process.env.REACT_APP_SERVER}/api/auth/refresh`);
+                // NOTA: Usiamo "axios" nativo, NON l'istanza "api", per non triggerare altri intercettori
+                const response = await axios.post(
+                    `${process.env.REACT_APP_SERVER}/api/auth/refresh`,
+                    {},
+                    { withCredentials: true } // Fondamentale per i cookie
+                );
+
                 const accessToken = response.data;
 
-                //aggiorno l'accessToken nel localStorage
+                // Aggiorno l'accessToken nel localStorage
                 const user = JSON.parse(localStorage.getItem('user'));
-                user.accessToken = accessToken;
-                localStorage.setItem('user', JSON.stringify(user));
+                if (user) {
+                    user.accessToken = accessToken;
+                    localStorage.setItem('user', JSON.stringify(user));
+                }
 
-
-                // AGGIORNA IL TOKEN NEGLI HEADER DI DEFAULT DELLA TUA ISTANZA API
+                // Aggiorna i token per le prossime chiamate
                 api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
-                // Aggiorna anche l'header della richiesta originale che stai per ritentare
                 originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
 
-                // Se il refresh ha successo, ritenta la richiesta originale
+                // Ritenta la richiesta originale
                 return api(originalRequest);
             } catch (refreshError) {
-                // Se anche il refresh fallisce (refresh-token scaduto), crea un evento "logout-event" che verrà catturato da App.js che eseguirà logout()
+                // Se il refresh fallisce (es. cookie scaduto), forziamo il logout
                 window.dispatchEvent(new CustomEvent('logout-event'));
                 return Promise.reject(refreshError);
             }
@@ -45,22 +56,18 @@ api.interceptors.response.use(
     }
 );
 
-// Interceptor per aggiungere l'accessToken a OGNI richiesta
+// Interceptor di richiesta (aggiunge il token se esiste)
 api.interceptors.request.use(
     (config) => {
-        //Recupera il token
         const user = JSON.parse(localStorage.getItem('user'));
         const accessToken = user?.accessToken;
 
         if (accessToken) {
-            // Se il token esiste, aggiungilo agli header
             config.headers['Authorization'] = `Bearer ${accessToken}`;
         }
         return config;
     },
-    (error) => {
-        return Promise.reject(error);
-    }
+    (error) => Promise.reject(error)
 );
 
 export default api;
